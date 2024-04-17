@@ -38,8 +38,8 @@ class Command(BaseCommand):
                         min_players=row[8],
                         max_players=row[9],
                         com_age_rec=row[10],
-                        language_ease=row[11],
-                        best_players=row[12],
+                        language_ease=int(row[11]) if row[11].isdigit() else None, # corrects for issues where value is not an integer but '' string
+                        best_players=row[13],
                         good_players=row[13],
                         num_owned=row[14],
                         num_want=row[15],

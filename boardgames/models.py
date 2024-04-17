@@ -15,9 +15,9 @@ class BoardGame(models.Model):
     min_players = models.IntegerField()
     max_players = models.IntegerField()
     com_age_rec = models.FloatField()
-    language_ease = models.FloatField()
-    best_players = models.CharField(max_length=255)  # Simplified; consider JSONField if using PostgreSQL
-    good_players = models.CharField(max_length=255)  # Simplified; consider JSONField if using PostgreSQL
+    language_ease = models.FloatField(null=True, blank=True)
+    best_players = models.CharField(max_length=255) 
+    good_players = models.CharField(max_length=255) 
     num_owned = models.IntegerField()
     num_want = models.IntegerField()
     num_wish = models.IntegerField()
