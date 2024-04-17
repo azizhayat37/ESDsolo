@@ -38,7 +38,7 @@ class Command(BaseCommand):
                         min_players=row[8],
                         max_players=row[9],
                         com_age_rec=row[10],
-                        language_ease=int(row[11]) if row[11].isdigit() else None, # corrects for issues where value is not an integer but '' string
+                        language_ease=float(row[11]) if row[11].isdigit() else 0.0, # corrects for issues where value is not an integer but '' string
                         best_players=row[13],
                         good_players=row[13],
                         num_owned=row[14],
@@ -67,14 +67,14 @@ class Command(BaseCommand):
                         rank_wargames=row[37],
                         rank_partygames=row[38],
                         rank_childrensgames=row[39],
-                        cat_thematic=row[40],
-                        cat_strategy=row[41],
-                        cat_war=row[42],
-                        cat_family=row[43],
-                        cat_cgs=row[44],
-                        cat_abstract=row[45],
-                        cat_party=row[46],
-                        cat_childrens=row[47]
+                        cat_thematic=True if row[40] == '1' else False,
+                        cat_strategy=True if row[41] == '1' else False,
+                        cat_war=True if row[42] == '1' else False,
+                        cat_family=True if row[43] == '1' else False,
+                        cat_cgs=True if row[44] == '1' else False,
+                        cat_abstract=True if row[45] == '1' else False,
+                        cat_party=True if row[46] == '1' else False,
+                        cat_childrens=True if row[47] == '1' else False
                     )
                     data.save()
                     print("Data has been saved to database!")
