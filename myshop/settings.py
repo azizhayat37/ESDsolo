@@ -26,7 +26,7 @@ SECRET_KEY = 'django-insecure-v=_d09)i53(h*x3m*li@38$rr9cr=#grr143p+88#a=(ug0is4
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = ['word-otherword.herokuapp.com', 'localhost']
+ALLOWED_HOSTS = ['word-otherword.herokuapp.com', 'localhost', '127.0.0.1']
 
 
 # Application definition
@@ -117,6 +117,10 @@ USE_TZ = True
 # Static files (CSS, JavaScript, Images)
 # https://docs.djangoproject.com/en/4.1/howto/static-files/
 
+STATICFILES_DIRS = [
+    os.path.join(BASE_DIR.parent, 'static'),  # Project-level static directory
+]
+
 STATIC_URL = 'static/'
 
 # Default primary key field type
@@ -125,3 +129,7 @@ STATIC_URL = 'static/'
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 
 STATIC_ROOT = os.path.join(BASE_DIR, 'static')
+
+# Media files (user-uploaded files)
+MEDIA_ROOT = os.path.join(BASE_DIR, 'media')
+MEDIA_URL = '/media/'
