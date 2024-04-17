@@ -74,7 +74,8 @@ class Command(BaseCommand):
                         cat_cgs=True if row[27] == '1' else False,
                         cat_abstract=True if row[28] == '1' else False,
                         cat_party=True if row[29] == '1' else False,
-                        cat_childrens=True if row[30] == '1' else False
+                        cat_childrens=True if row[30] == '1' else False,
+                        price = row[31]
                     )
                     data.save()
                     print("Data has been saved to database!")

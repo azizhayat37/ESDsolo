@@ -52,6 +52,7 @@ class BoardGame(models.Model):
     cat_abstract = models.BooleanField()
     cat_party = models.BooleanField()
     cat_childrens = models.BooleanField()
+    price = models.FloatField()
 
     def __str__(self):
         return self.name
