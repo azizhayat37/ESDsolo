@@ -1,6 +1,7 @@
 from django.db import models
 from django.db import models
 from django.utils import timezone
+from django.contrib.auth.models import User
 
 # Create your models here.
 class BoardGame(models.Model):
@@ -56,3 +57,16 @@ class BoardGame(models.Model):
 
     def __str__(self):
         return self.name
+    
+
+class CartItem(models.Model):
+    user = models.ForeignKey(User, on_delete=models.CASCADE)
+    boardgame = models.ForeignKey(BoardGame, on_delete=models.CASCADE)
+    quantity = models.IntegerField(default=1)
+    date_added = models.DateTimeField(default=timezone.now)
+    
+    def __str__(self):
+        return f'{self.quantity} of {self.boardgame.name}'
+
+    def get_total(self):
+        return self.boardgame.price * self.quantity
