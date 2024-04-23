@@ -9582,3 +9582,70 @@ a.text-dark:hover, a.text-dark:focus {
     transform: translateY(-15px);
   }
 }
+
+/*
+Aziz Note: I've added the below to create game item flexbox to display items in a row
+
+.list-group {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-between; 
+  align-items: center;
+}
+
+.game-item {
+  flex-basis: calc(100% / 7 - 10px);
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-between;
+  align-items: center;
+  width: calc(100% / 7);
+  margin-bottom: 20px;
+}
+
+.game-item img {
+  width: 100%;
+  height: auto;
+}
+
+.game-item h3 {
+  text-align: center;
+  margin-top: 10px;
+  font-size: 16px;
+}
+
+.game-item p {
+  text-align: center;
+  margin-top: 5px;
+  font-size: 14px;
+}
+*/
+
+.list-group {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 20px; /* This creates space between the items */
+  justify-content: flex-start;
+}
+
+.game-item {
+  flex: 1 1 calc(14.28% - 20px); /* Adjust the percentage for the number of items you want in a row, minus the gap */
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  margin-bottom: 20px;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1); /* Optional: adds shadow for card-like effect */
+  padding: 10px;
+  background: #fff; /* Optional: to ensure the background of the card is white */
+}
+
+.game-item img {
+  width: 100%;
+  height: auto;
+  max-height: 200px; /* Adjust this value as needed */
+}
+
+.game-item h3, .game-item p {
+  width: 100%;
+  text-align: center;
+}

@@ -1,0 +1,31 @@
+{% extends 'boardgames/base.html' %}
+   
+   
+{% block content %}
+<div class="container mt-3">
+    <div class="row">
+        <!-- Product Item -->
+        {% for game in games %}
+        <div class="col-md-4 d-flex">
+            <div class="card flex-fill">
+                <img class="card-img-top" src="{{ game.image_path }}" alt="Product Name">
+                <div class="card-body">
+                    <h5 class="card-title">{{ game.name }}</h5>
+                    <p class="card-text">Some quick example text to build on the card title.</p>
+                    <div class="d-flex justify-content-between align-items-center">
+                        <span class="price">${{game.price}}</span>
+                        <a href="#" class="btn btn-primary">Buy Now</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+        {% endfor %}
+        <!-- Repeat for other products... -->
+    </div>
+</div>
+
+<!-- Bootstrap JS and its dependencies (jQuery and Popper) -->
+<script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.9.3/dist/umd/popper.min.js"></script>
+<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+{% endblock %}

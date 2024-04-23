@@ -3,6 +3,7 @@ from django.db.models import F
 from django.contrib.auth import authenticate, login
 from django.shortcuts import render, get_object_or_404, redirect
 from django.contrib.auth.forms import UserCreationForm, AuthenticationForm
+from .models import BoardGame
 
 # Create your views here.
 
@@ -38,8 +39,12 @@ def login(request):
         form = AuthenticationForm()
     return render(request, 'boardgames/login.html', {'form': form})
     
-
-
 def index(request):
     context = {}
     return render(request, 'boardgames/index.html', context)
+
+
+def display(request):
+    games = BoardGame.objects.all()
+    context = { 'games': games}
+    return render(request, 'boardgames/display.html', context)
