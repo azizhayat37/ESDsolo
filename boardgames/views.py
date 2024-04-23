@@ -3,6 +3,7 @@ from django.db.models import F
 from django.contrib.auth import authenticate, login
 from django.shortcuts import render, get_object_or_404, redirect
 from django.contrib.auth.forms import UserCreationForm, AuthenticationForm
+from django.core.paginator import Paginator, EmptyPage, PageNotAnInteger
 from .models import BoardGame
 
 # Create your views here.
@@ -46,5 +47,22 @@ def index(request):
 
 def display(request):
     games = BoardGame.objects.all()
-    context = { 'games': games}
+    page = request.GET.get('page', 1)
+
+    start = 1
+    end = 21
+
+    paginator = Paginator(games, end)
+    try:
+        games = paginator.page(page)
+    except PageNotAnInteger:
+        games = paginator.page(1)
+    except EmptyPage:
+        games = paginator.page(paginator.num_pages)    
+    
+    context = { 
+        'games': games,
+        'range': range(start, end + 1),
+        'pagination_range': f"{start},{end}",
+    }
     return render(request, 'boardgames/display.html', context)

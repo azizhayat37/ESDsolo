@@ -1,0 +1,7 @@
+{% load tags %}
+
+{% for i in range|get_pagination_range:pagination_range %}
+    <li class="page-item {% if games.number == i %}active{% endif %}">
+        <a class="page-link" href="?page={{ i }}">{{ i }}</a>
+    </li>
+{% endfor %}
