@@ -5,6 +5,7 @@ from django.shortcuts import render, get_object_or_404, redirect
 from django.contrib.auth.forms import UserCreationForm, AuthenticationForm
 from django.core.paginator import Paginator, EmptyPage, PageNotAnInteger
 from .models import BoardGame
+from .forms import LoginForm
 
 # Create your views here.
 
@@ -18,7 +19,7 @@ def register(request):
             raw_password = form.cleaned_data.get('password1')
             user = authenticate(username=username, password=raw_password)
             login(request, user)
-            return redirect('boardgames:index')
+            return redirect('index')
     else:
         form = UserCreationForm()
     return render(request, 'boardgames/register.html', {'form': form})
@@ -27,17 +28,17 @@ def register(request):
 # NEED TO CREATE A LOGIN PAGE
 def login(request):
     if request.method == 'POST':
-        form = AuthenticationForm(data=request.POST)
+        form = LoginForm(request.POST)
         if form.is_valid():
             username = form.cleaned_data.get('username')
             password = form.cleaned_data.get('password')
             user = authenticate(username=username, password=password)
             if user is not None:
                 login(request, user)
-                return redirect('boardgames:index')
-            return redirect('boardgames:index')
+                return redirect('index')
+            return redirect('index')
     else:
-        form = AuthenticationForm()
+        form = LoginForm()
     return render(request, 'boardgames/login.html', {'form': form})
     
 def index(request):
@@ -45,8 +46,30 @@ def index(request):
     return render(request, 'boardgames/index.html', context)
 
 
-def display(request):
-    games = BoardGame.objects.all()
+def display(request, category=None):
+    # return the correct category of games
+    if category == None or category == 'all':
+        games = BoardGame.objects.all()
+    elif category == 'thematic':
+        games = BoardGame.objects.filter(cat_thematic=True)
+    elif category == 'strategy':
+        games = BoardGame.objects.filter(cat_strategy=True)
+    elif category == 'war':
+        games = BoardGame.objects.filter(cat_war=True)
+    elif category == 'family':
+        games = BoardGame.objects.filter(cat_family=True)
+    elif category == 'cgs':
+        games = BoardGame.objects.filter(cat_cgs=True)
+    elif category == 'abstract':
+        games = BoardGame.objects.filter(cat_abstract=True)
+    elif category == 'party':
+        games = BoardGame.objects.filter(cat_party=True)
+    elif category == 'childrens':
+        games = BoardGame.objects.filter(cat_childrens=True)
+    else:
+        games = BoardGame.objects.all()
+
+    # establish pagination 
     page = request.GET.get('page', 1)
 
     start = 1
