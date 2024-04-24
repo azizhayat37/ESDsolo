@@ -61,16 +61,18 @@
                 </a>
             </div>
             <div class="col-lg-6 col-6 text-left">
-                <form action="">
+
+                <form action="{% url 'display' category='all' %}" method="get">
                     <div class="input-group">
-                        <input type="text" class="form-control" placeholder="Search for boardgames">
+                        <input type="text" class="form-control" name="category" placeholder="Search for boardgames!" required>
                         <div class="input-group-append">
-                            <span class="input-group-text bg-transparent text-primary">
+                            <button class="input-group-text bg-transparent text-primary" type="submit">
                                 <i class="fa fa-search"></i>
-                            </span>
+                            </button>
                         </div>
                     </div>
                 </form>
+
             </div>
             <div class="col-lg-3 col-6 text-right">
                 <a href="" class="btn border">

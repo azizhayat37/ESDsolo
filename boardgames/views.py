@@ -47,6 +47,10 @@ def index(request):
 
 
 def display(request, category=None):
+
+    # in case of a GET request via the search bar (see base.html)
+    category = request.GET.get('category', category)
+
     # return the correct category of games
     if category == None or category == 'all':
         games = BoardGame.objects.all()
@@ -67,7 +71,9 @@ def display(request, category=None):
     elif category == 'childrens':
         games = BoardGame.objects.filter(cat_childrens=True)
     else:
-        games = BoardGame.objects.all()
+        # if something passes in through search for something that isn't a category
+        # search boardgames in the database by name
+        games = BoardGame.objects.filter(name__icontains=category)
 
     # establish pagination 
     page = request.GET.get('page', 1)
