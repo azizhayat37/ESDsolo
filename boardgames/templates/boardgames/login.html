@@ -1,9 +1,9 @@
 {% extends 'boardgames/base.html' %}
 
 {% block content %}
-    <div style="display: flex; justify-content: center; align-items: center; height: 80vh;">
+    <div style="display: flex; justify-content: center; align-items: center; height: 40vh;">
         <div style="width: 100%; max-width: 320px;">
-            <form action="{% url 'login' %}" method="post">
+            <form action="{% url 'login_view' %}" method="post">
                 {% csrf_token %}
                 <div class="form-group">
                     {{ form.username.label_tag }}
@@ -15,6 +15,7 @@
                 </div>
                 <div>
                     <input type="submit" value="Login" class="btn btn-primary">
+                    <a href="{% url 'register' %}" class="btn btn-secondary">Register</a>
                 </div>
                 {% if form.non_field_errors %}
                     <div class="alert alert-danger">

@@ -1,32 +1,34 @@
 from django.shortcuts import render
 from django.db.models import F
-from django.contrib.auth import authenticate, login
+from django.contrib.auth import authenticate
+from django.contrib.auth import logout as auth_logout
+from django.contrib.auth import login as auth_login
 from django.shortcuts import render, get_object_or_404, redirect
 from django.contrib.auth.forms import UserCreationForm, AuthenticationForm
 from django.core.paginator import Paginator, EmptyPage, PageNotAnInteger
 from .models import BoardGame
-from .forms import LoginForm
+from .forms import LoginForm, RegisterForm
 
 # Create your views here.
 
-# NEED TO CREATE A REGISTRATION PAGE
+def index(request):
+    context = {}
+    return render(request, 'boardgames/index.html', context)
+
+
 def register(request):
     if request.method == 'POST':
-        form = UserCreationForm(request.POST)
+        form = RegisterForm(request.POST)  # Use the custom RegisterForm
         if form.is_valid():
-            form.save()
-            username = form.cleaned_data.get('username')
-            raw_password = form.cleaned_data.get('password1')
-            user = authenticate(username=username, password=raw_password)
-            login(request, user)
+            user = form.save()
+            auth_login(request, user)  # Log the user in
             return redirect('index')
     else:
-        form = UserCreationForm()
+        form = RegisterForm()  # Instantiate a blank version of your custom form
     return render(request, 'boardgames/register.html', {'form': form})
     
 
-# NEED TO CREATE A LOGIN PAGE
-def login(request):
+def login_view(request):
     if request.method == 'POST':
         form = LoginForm(request.POST)
         if form.is_valid():
@@ -34,16 +36,12 @@ def login(request):
             password = form.cleaned_data.get('password')
             user = authenticate(username=username, password=password)
             if user is not None:
-                login(request, user)
+                auth_login(request, user)
                 return redirect('index')
             return redirect('index')
     else:
         form = LoginForm()
     return render(request, 'boardgames/login.html', {'form': form})
-    
-def index(request):
-    context = {}
-    return render(request, 'boardgames/index.html', context)
 
 
 def display(request, category=None):
@@ -75,7 +73,7 @@ def display(request, category=None):
         # search boardgames in the database by name
         games = BoardGame.objects.filter(name__icontains=category)
 
-    # establish pagination 
+    # establish pagination, see tags.py under templatetags for more info
     page = request.GET.get('page', 1)
 
     start = 1
@@ -95,3 +93,7 @@ def display(request, category=None):
         'pagination_range': f"{start},{end}",
     }
     return render(request, 'boardgames/display.html', context)
+
+def logout_view(request):
+    auth_logout(request)
+    return redirect('index')
