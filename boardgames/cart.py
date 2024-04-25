@@ -1,7 +1,8 @@
-from django.shortcuts import redirect, render
-from .models import BoardGame, CartItem, Order, OrderItem
+from django.shortcuts import redirect
+from .models import BoardGame, CartItem, Order
 from django.utils import timezone
 from django.shortcuts import get_object_or_404
+from django.contrib import messages
 
 # Here I'm going to create all the logic necessary to interact with carts and orders on the ecommerce site
 # As we are not simulating the presence of inventory, we'll just assuming everything is infinitely available for purchase
@@ -31,34 +32,30 @@ def return_user_cart(request):
     user_cart = CartItem.objects.filter(user=request.user.id)
     return user_cart
 
+''' 
+    user = models.ForeignKey(User, on_delete=models.CASCADE)
+    items = models.ManyToManyField(CartItem)
+    date_ordered = models.DateTimeField(default=timezone.now)  
+'''
 
-
-
-
-
-
-
-
-
-
-    '''
-    #check if the user already has this boardgame in their cart
-    # check if the user already has this boardgame in their cart
-    if CartItem.objects.filter(user=request.user, boardgame_id=boardgame_id).exists():
-        specific_item = CartItem.objects.get(user=request.user, boardgame_id=boardgame_id)
-        specific_item.quantity += 1
-        specific_item.save()
-    else:
-        boardgame = get_object_or_404(BoardGame, pk=boardgame_id)
-        # create an object to add to the cart
-        cart_item = CartItem(
-            user = request.user,
-            boardgame = boardgame, #passing in the actual boardgame instance resolved this bug, don't use the ID here (note to self)
-            quantity = quantity,
-            date_added = timezone.now()
+def checkout(request):
+    # create logic to pass cart items to create order then wipe the cart
+    if not request.user.is_authenticated:
+        return redirect('login_view')
+    new_order = Order(
+        user=request.user,
+        #items=return_user_cart(request),
+        date_ordered=timezone.now()
         )
-        # commit to db
-        cart_item.save()
-        # go to cart view
-        return redirect('cart_view')
-    '''   
+    #save to db
+    new_order.save()
+    # I don't know why this part works, but it does (from stack overflow)
+    cart_items = return_user_cart(request)
+    for item in cart_items:
+            new_order.items.add(item)
+    # flash a thank you message
+    messages.success(request, 'Thank you for your order!')
+    #clear the user's cart
+    CartItem.objects.filter(user=request.user).delete()
+    #back to do more shopping
+    return redirect('display')

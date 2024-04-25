@@ -70,9 +70,6 @@ class CartItem(models.Model):
     
     def __str__(self):
         return f'{self.quantity} of {self.boardgame.name}'
-
-    def get_total(self):
-        return self.boardgame.price * self.quantity
     
 
 class Order(models.Model):
@@ -82,11 +79,3 @@ class Order(models.Model):
     
     def __str__(self):
         return f'Order for {self.user.username}'
-    
-class OrderItem(models.Model):
-    order = models.ForeignKey(Order, on_delete=models.CASCADE)
-    boardgame = models.ForeignKey(BoardGame, on_delete=models.CASCADE)
-    quantity = models.IntegerField(default=1)
-    
-    def __str__(self):
-        return f'{self.quantity} of {self.boardgame.name}'

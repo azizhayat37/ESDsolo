@@ -9,7 +9,7 @@ from django.contrib.auth.forms import UserCreationForm, AuthenticationForm
 from django.core.paginator import Paginator, EmptyPage, PageNotAnInteger
 from .models import BoardGame
 from .forms import LoginForm, RegisterForm
-from .cart import add_to_cart, return_user_cart
+from .cart import add_to_cart, return_user_cart, checkout
 
 
 # Create your views here.
@@ -113,10 +113,6 @@ def cart_view(request):
         messages.warning(request, "There's nothing in your cart!")
         return redirect('index')
 
-
-
-def checkout(request):
-    return "oops"
 
 def logout_view(request):
     auth_logout(request)
