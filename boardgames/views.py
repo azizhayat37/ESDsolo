@@ -76,6 +76,11 @@ def display(request, category=None):
         # search boardgames in the database by name
         games = BoardGame.objects.filter(name__icontains=category)
 
+    if not games:
+        #if there are no games that match the search, flash a warning and show all games
+        messages.warning(request, 'No games found!')
+        return redirect('display')
+
     # establish pagination, see tags.py under templatetags for more info
     page = request.GET.get('page', 1)
 
