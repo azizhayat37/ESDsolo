@@ -1,5 +1,6 @@
 from django.shortcuts import render
 from django.db.models import F
+from django.contrib import messages
 from django.contrib.auth import authenticate
 from django.contrib.auth import logout as auth_logout
 from django.contrib.auth import login as auth_login
@@ -8,6 +9,8 @@ from django.contrib.auth.forms import UserCreationForm, AuthenticationForm
 from django.core.paginator import Paginator, EmptyPage, PageNotAnInteger
 from .models import BoardGame
 from .forms import LoginForm, RegisterForm
+from .cart import add_to_cart, return_user_cart
+
 
 # Create your views here.
 
@@ -93,6 +96,27 @@ def display(request, category=None):
         'pagination_range': f"{start},{end}",
     }
     return render(request, 'boardgames/display.html', context)
+
+def cart_view(request):
+    try:
+        user_cart = return_user_cart(request)
+            # if the user cart isn't empty, then...
+        total = 0
+        for item in user_cart:
+            total += item.get_total()
+        context = {
+            'user_cart': user_cart,
+            'total': total
+        }
+        return render(request, 'boardgames/cart.html', context)
+    except:
+        messages.warning(request, "There's nothing in your cart!")
+        return redirect('index')
+
+
+
+def checkout(request):
+    return "oops"
 
 def logout_view(request):
     auth_logout(request)

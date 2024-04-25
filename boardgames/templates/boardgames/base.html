@@ -115,14 +115,23 @@
                             <div class="nav-item dropdown">
                                 <a href="#" class="nav-link dropdown-toggle" data-toggle="dropdown">Pages</a>
                                 <div class="dropdown-menu rounded-0 m-0">
-                                    <a href="cart.html" class="dropdown-item">Shopping Cart</a>
-                                    <a href="checkout.html" class="dropdown-item">Checkout</a>
+                                    <a href="{% url 'cart_view' %}" class="dropdown-item">Shopping Cart</a>
+                                    <a href="{% url 'checkout' %}" class="dropdown-item">Checkout</a>
                                 </div>
                             </div>
-                            <!-- rick roll the user using autoplay link to youtube -->
+                            <!-- rick roll the user using autoplay link to youtube mwahahahaha -->
                             <a href="https://www.youtube.com/watch?v=dQw4w9WgXcQ" class="nav-item nav-link" target="_blank" onclick="event.preventDefault(); window.open(this.href, '_blank', 'autoplay=1');">SPECIAL OFFERS</a>
-                            <a href="contact.html" class="nav-item nav-link">Contact</a>
                         </div>
+                        {% if messages %}
+                        {% for message in messages %}
+                            <div class="alert alert-{{ message.tags }} alert-dismissible fade show">
+                                {{ message }}
+                                <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                                    <span aria-hidden="true">&times;</span>
+                                </button>
+                            </div>
+                        {% endfor %}
+                        {% endif %}   
                         <div class="navbar-nav ml-auto py-0">
                             {% if user.is_authenticated %}
                             <a href="{% url 'logout_view' %}"  class="nav-item nav-link">Hello, {{ user.username }}! (Logout)</a>
@@ -187,6 +196,22 @@
 
     <!-- Template Javascript -->
     <script src="js/main.js"></script>
+
+    <!-- TIME OUT-->
+    <script>
+        // Function to hide messages after a delay
+        window.onload = function() {
+            setTimeout(function() {
+                // Find all elements with the 'alert' class
+                const alerts = document.querySelectorAll('.alert');
+                // Loop through the elements and set display to 'none' to hide them
+                alerts.forEach(function(alert) {
+                    alert.style.display = 'none';
+                });
+            }, 2000); // Time in milliseconds (2000 ms = 2 seconds)
+        };
+    </script>
+    
 </body>
 
 </html>
