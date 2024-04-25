@@ -97,19 +97,17 @@ def display(request, category=None):
     }
     return render(request, 'boardgames/display.html', context)
 
+
 def cart_view(request):
-    try:
-        user_cart = return_user_cart(request)
-            # if the user cart isn't empty, then...
-        total = 0
-        for item in user_cart:
-            total += item.get_total()
+    user_cart = return_user_cart(request)
+    if user_cart is not None:
+        total_price = 0 #REPLACE WITH REAL VALUE LATER
         context = {
             'user_cart': user_cart,
-            'total': total
+            'total_price': total_price
         }
         return render(request, 'boardgames/cart.html', context)
-    except:
+    else:
         messages.warning(request, "There's nothing in your cart!")
         return redirect('index')
 

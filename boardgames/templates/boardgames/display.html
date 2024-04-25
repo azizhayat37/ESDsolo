@@ -16,8 +16,9 @@
                     <div class="mt-auto"> <!-- Use mt-auto to push the content to the bottom -->
                         <div class="d-flex justify-content-between align-items-center">
                             <span class="price">${{ game.price|floatformat:0 }}</span>
-                            <a href="#" class="btn btn-primary">Add To Cart</a>
+                            <a href="{% url 'add_to_cart' bgg_id=game.bgg_id quantity=1 %}" class="btn btn-primary">Add To Cart</a>
                         </div>
+
                     </div>
                 </div>
             </div>
