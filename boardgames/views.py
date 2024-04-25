@@ -102,6 +102,8 @@ def cart_view(request):
     user_cart = return_user_cart(request)
     if user_cart is not None:
         total_price = 0 #REPLACE WITH REAL VALUE LATER
+        for item in user_cart:
+            total_price += item.quantity * item.boardgame.price
         context = {
             'user_cart': user_cart,
             'total_price': total_price
