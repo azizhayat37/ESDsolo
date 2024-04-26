@@ -1,0 +1,31 @@
+97e18e4	AzizHayat	Fri Apr 26 02:25:55 2024	updated requirements.txt
+e6fbcec	AzizHayat	Thu Apr 25 23:46:43 2024	added some error handling in search, and fake order generator command
+17ebf06	AzizHayat	Thu Apr 25 17:08:50 2024	deleted unused HTML templates
+3c6378a	AzizHayat	Thu Apr 25 17:02:55 2024	restructured models.py and made new migrations + migrated, checkout feature now works without errors
+acc1db9	AzizHayat	Thu Apr 25 03:36:07 2024	cart logic now done, need to add checkout and charts
+04e1f4a	AzizHayat	Thu Apr 25 03:22:58 2024	can now successfully update a cart, need to add order function
+7048f66	AzizHayat	Thu Apr 25 01:06:28 2024	added models for carts and orders, added their html templates, lots of tiny fixes
+67c9b03	AzizHayat	Wed Apr 24 22:42:21 2024	users can now log in and log out, lots of minor changes to templates, views.py, urls.py, and forms.py
+eaeb7aa	AzizHayat	Wed Apr 24 20:03:00 2024	search function is now operational
+6ebff4f	AzizHayat	Wed Apr 24 00:35:58 2024	minor edits, need to implement search
+036b513	AzizHayat	Tue Apr 23 22:59:13 2024	display finally properly fixed
+6bebb23	AzizHayat	Tue Apr 23 22:49:33 2024	pagination and display working properly
+c9a8905	AzizHayat	Tue Apr 23 22:40:07 2024	pagination working, now need to figure out the display
+4006387	AzizHayat	Tue Apr 23 16:45:59 2024	quick edit
+aeefa6c	AzizHayat	Tue Apr 23 16:38:49 2024	added display.html and the ability to populate it with some data
+a4c5829	AzizHayat	Sat Apr 20 14:15:26 2024	few minor updates, amended base.html and urls.py
+f8ef319	AzizHayat	Sat Apr 20 13:03:35 2024	created login and register logic in views.py, need to create the HTML templates for it and test it
+b9ebb8c	AzizHayat	Sat Apr 20 12:42:28 2024	adding logic and models for shopping cart
+7414f17	AzizHayat	Fri Apr 19 12:47:33 2024	added superuser and a number of html templates (need heavy amendment)
+7f71a0d	AzizHayat	Wed Apr 17 23:11:12 2024	added gitignore
+c87acd9	AzizHayat	Wed Apr 17 23:06:20 2024	created carousel for the homepage
+213a3d4	AzizHayat	Wed Apr 17 21:09:53 2024	added price to database
+e548971	AzizHayat	Wed Apr 17 17:47:46 2024	need to see why i can only see 1600 DB entries
+9753fbd	AzizHayat	Wed Apr 17 16:16:52 2024	successfully created DBs from the CSV files
+8636352	AzizHayat	Wed Apr 17 15:58:46 2024	cannot parse csv to db because of data type issue with language_ease
+a2b86e1	AzizHayat	Wed Apr 17 15:25:46 2024	added basic HTML templates with inheritance -- need to customize it
+01f334e	AzizHayat	Wed Apr 17 14:54:00 2024	updated css and img files, changed settings.py
+09f2a1f	AzizHayat	Wed Apr 17 14:16:24 2024	added amended csv and created parse_csv.py file, created models, added 1 view for now
+23f4067	AzizHayat	Wed Apr 17 13:43:12 2024	mistake in file structure corrected
+1465135	AzizHayat	Wed Apr 17 13:28:36 2024	created an app called boardgames for a boardgame website
+fe0bf0a	Aziz Hayat	Wed Apr 17 11:26:12 2024	Initial commit
